@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-PT" data-theme="light">
+<head> 
+    <!-- Suporte a PWA para iOS e Android -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Personagens">
+<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3408/3408506.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arquivo de personagens</title>
+<style>
+:root{--bg:#EDF0F3;--pn:#fff;--ink:#1A2233;--mu:#5E6A7D;--ln:#D5DBE3;--ac:#2B6F6A;--acx:#fff;--wm:#C77D2E;--r:14px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme=dark]{--bg:#12161F;--pn:#1B212D;--ink:#E6EAF1;--mu:#98A3B5;--ln:#2B3342;--ac:#5FBFB4;--acx:#0d1a19}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#12161F;--pn:#1B212D;--ink:#E6EAF1;--mu:#98A3B5;--ln:#2B3342;--ac:#5FBFB4;--acx:#0d1a19}}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;display:flex}
+h1,h2,h3,.nm{font-family:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;font-weight:600;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--ac)}button.pri{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:8px 10px}
+textarea{resize:vertical;min-height:90px}
+nav{width:210px;flex:none;background:var(--pn);border-right:1px solid var(--ln);padding:18px 12px;display:flex;flex-direction:column;gap:4px;overflow:auto}
+nav h1{font-size:19px;padding:0 10px 14px}
+nav a{padding:8px 12px;border-radius:10px;color:var(--mu);text-decoration:none;cursor:pointer;white-space:nowrap}
+nav a.on{background:var(--ac);color:var(--acx)}
+#col{flex:1;min-width:0;display:flex;flex-direction:column}
+header{display:flex;gap:10px;align-items:center;padding:12px 22px;border-bottom:1px solid var(--ln);background:var(--pn)}
+header input{max-width:460px}#st{margin-left:auto;color:var(--mu);font-size:13px;white-space:nowrap}
+main{padding:22px;overflow:auto;flex:1}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.bar select{width:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.list{display:flex;flex-direction:column;gap:10px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.list .card{flex-direction:row}
+.card .im{aspect-ratio:4/3;background:var(--ln) center/cover;display:grid;place-items:center;font:600 40px Georgia,serif;color:var(--mu);cursor:pointer}
+.list .card .im{width:110px;aspect-ratio:1;flex:none}
+.card .bd{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card p{margin:0;color:var(--mu);font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tg{display:inline-block;font-size:12px;padding:1px 9px;border:1px solid var(--ln);border-radius:99px;color:var(--mu);margin:0 4px 4px 0;cursor:pointer}
+.act{display:flex;gap:4px;margin-top:auto}.act button{padding:2px 9px}
+.fav{color:var(--wm);border:0;background:none;font-size:20px;padding:0}
+.hero{display:flex;gap:22px;flex-wrap:wrap;background:var(--pn);border:1px solid var(--ln);border-radius:var(--r);padding:18px}
+.pic{width:230px;max-width:100%;aspect-ratio:3/4;border-radius:var(--r);background:var(--ln) center/cover;display:grid;place-items:center;font:600 64px Georgia,serif;color:var(--mu)}
+.hi{flex:1;min-width:240px;display:flex;flex-direction:column;gap:8px}
+.hi h2{font-size:34px;line-height:1.1}
+.tabs{display:flex;gap:4px;overflow-x:auto;margin:18px 0 14px;border-bottom:1px solid var(--ln)}
+.tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;white-space:nowrap;color:var(--mu)}
+.tabs button.on{color:var(--ink);border-color:var(--ac)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.f span,.kv b{display:block;font-size:13px;color:var(--mu);margin-bottom:2px;font-weight:500}
+.kv{background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:10px 14px}
+.kv p{margin:0;white-space:pre-wrap}
+.item{background:var(--pn);border:1px solid var(--ln);border-radius:var(--r);padding:14px;margin-bottom:12px;position:relative}
+.item .ctl{display:flex;gap:4px;justify-content:flex-end;margin-bottom:8px}
+.item img,.pv{max-width:100%;max-height:220px;border-radius:10px;display:block;margin:6px 0}
+.q{border-left:4px solid var(--ac);font:italic 19px/1.4 Georgia,serif}
+.rich{min-height:120px;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:10px}
+.tl{border-left:2px solid var(--ac);padding-left:16px;margin-left:6px}
+.tl .item::before{content:"";position:absolute;left:-25px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--ac)}
+.rel{display:flex;gap:12px;align-items:center;cursor:pointer}
+.av{width:48px;height:48px;border-radius:50%;background:var(--ln) center/cover;flex:none;display:grid;place-items:center;font:600 20px Georgia,serif}
+.empty{color:var(--mu);padding:26px;text-align:center;border:1px dashed var(--ln);border-radius:var(--r)}
+dialog{border:1px solid var(--ln);border-radius:var(--r);background:var(--pn);color:var(--ink);max-width:380px;width:90%}
+dialog .row{display:flex;gap:8px;justify-content:flex-end;flex-direction:row-reverse;margin-top:12px}
+svg text{fill:var(--ink);font-size:12px}svg .ed{stroke:var(--mu);stroke-width:1.2}
+@media(max-width:780px){body{flex-direction:column-reverse}nav{width:auto;flex-direction:row;border-right:0;border-top:1px solid var(--ln);padding:6px}nav h1{display:none}main,header{padding:14px}.pic{width:100%;aspect-ratio:4/3}}
+#sheet{display:none}@media print{nav,#col{display:none!important}#sheet{display:block;color:#000;background:#fff;padding:10px}#sheet img{max-width:180px;float:right}#sheet h1{font-size:30px}#sheet h3{border-bottom:1px solid #999;margin-top:16px}#sheet p{white-space:pre-wrap;margin:2px 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav id="nav"></nav><div id="sheet"></div>
+<div id="col"><header><input id="q" type="search" placeholder="Pesquisar nome, tags, universo, relações…" aria-label="Pesquisar"><span id="st"></span></header><main id="m"></main></div>
+<script>
+// ---------- Armazenamento (trocar por API online mais tarde) ----------
+const Store=(()=>{let db;const o=()=>new Promise((ok,ko)=>{if(db)return ok(db);const q=indexedDB.open('personagens',1);q.onupgradeneeded=()=>q.result.createObjectStore('chars',{keyPath:'id'});q.onsuccess=()=>{db=q.result;ok(db)};q.onerror=()=>ko(q.error)});
+const tx=(m,f)=>o().then(d=>new Promise((ok,ko)=>{const t=d.transaction('chars',m),r=f(t.objectStore('chars'));t.oncomplete=()=>ok(r.result);t.onerror=()=>ko(t.error)}));
+return{all:()=>tx('readonly',s=>s.getAll()),put:c=>tx('readwrite',s=>s.put(c)),del:id=>tx('readwrite',s=>s.delete(id)),clear:()=>tx('readwrite',s=>s.clear())}})();
+// ---------- Modelo ----------
+const SEC={
+info:[['completo','Nome completo'],['apelidos','Apelidos'],['titulos','Títulos'],['idade','Idade'],['nascimento','Data de nascimento'],['genero','Género'],['pronomes','Pronomes'],['especie','Espécie'],['nacionalidade','Nacionalidade'],['localNasc','Local de nascimento'],['localAtual','Localização atual'],['profissao','Profissão'],['ocupacao','Ocupação'],['estado','Estado atual']],
+desc:[['gostos','Gostos','l'],['desgostos','Desgostos','l'],['medos','Medos','l'],['objetivos','Objetivos','l'],['motivacao','Motivação','l'],['fortes','Pontos fortes','l'],['fraquezas','Fraquezas','l'],['poderes','Poderes','l'],['talentos','Talentos','l'],['habitos','Hábitos','l'],['manias','Manias','l'],['segredos','Segredos','l']],
+apar:[['altura','Altura'],['peso','Peso'],['olhos','Cor dos olhos'],['cabelo','Cor do cabelo'],['tipoCabelo','Tipo de cabelo'],['pele','Pele'],['corpo','Corpo'],['roupas','Roupas'],['acessorios','Acessórios'],['marcas','Marcas'],['tatuagens','Tatuagens'],['cicatrizes','Cicatrizes'],['especiais','Características especiais'],['livre','Descrição livre da aparência','l']],
+pers:[['tipo','Tipo de personalidade'],['alinhamento','Alinhamento'],['ptags','Etiquetas (separadas por vírgula)'],['tracos','Traços','l'],['qualidades','Qualidades','l'],['defeitos','Defeitos','l'],['valores','Valores','l'],['crencas','Crenças','l'],['desejos','Desejos','l'],['frases','Frases típicas','l'],['fala','Forma de falar','l']]};
+const LST={
+historia:['História / capítulos',[['titulo','Capítulo (ex.: Infância)'],['html','Texto','rich']],'Adicionar capítulo'],
+habilidades:['Habilidades',[['nome','Nome'],['categoria','Categoria'],['nivel','Nível'],['descricao','Descrição','l'],['limites','Limitações','l'],['img','Imagem','img']],'Adicionar habilidade'],
+timeline:['Linha temporal',[['data','Data ou período'],['titulo','Título'],['descricao','Descrição','l'],['pessoas','Personagens relacionados','chars'],['img','Imagem','img']],'Adicionar evento'],
+inventario:['Inventário',[['nome','Nome'],['origem','Origem'],['importancia','Importância'],['descricao','Descrição','l'],['obs','Observações','l'],['img','Imagem','img']],'Adicionar objeto'],
+imagens:['Imagens',[['url','Imagem','img'],['legenda','Descrição']],'Adicionar imagem'],
+citacoes:['Citações',[['texto','Frase','l'],['contexto','Contexto'],['evento','Evento / capítulo']],'Adicionar citação'],
+campos:['Campos personalizados',[['nome','Nome do campo'],['tipo','Tipo','sel'],['valor','Valor','val']],'Adicionar campo']};
+const TABS=[['desc','Descrição'],['info','Informações'],['apar','Aparência'],['pers','Personalidade'],['historia','História'],['habilidades','Habilidades'],['rel','Relações'],['timeline','Timeline'],['inventario','Inventário'],['imagens','Imagens'],['citacoes','Citações'],['notas','Notas e campos']];
+const TIPOS=[['s','Texto curto'],['l','Texto longo'],['n','Número'],['d','Data'],['list','Lista'],['b','Sim/Não'],['img','Imagem'],['u','URL']];
+const REL=['Amigo','Melhor amigo','Inimigo','Rival','Irmão','Irmã','Pai','Mãe','Filho','Filha','Parceiro','Ex-parceiro','Interesse amoroso','Colega','Mentor','Aprendiz','Aliado','Conhecido','Outro'];
+const NAV=[['','Dashboard'],['personagens','Personagens'],['favoritos','Favoritos'],['universos','Universos'],['tags','Tags'],['relacoes','Relações'],['timeline','Timeline'],['config','Definições']];
+const S={chars:[],q:'',f:{u:'',t:'',s:'rec',v:'grid'},ed:false,tab:'desc',save:'saved',sel:new Set()};
+const $=s=>document.querySelector(s),M=$('#m');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const san=h=>{const d=new DOMParser().parseFromString(h||'','text/html');d.querySelectorAll('script,iframe,object,embed,style').forEach(e=>e.remove());d.querySelectorAll('*').forEach(e=>[...e.attributes].forEach(a=>{if(/^on/i.test(a.name)||/^\s*javascript:/i.test(a.value))e.removeAttribute(a.name)}));return d.body.innerHTML};
+const byId=id=>S.chars.find(c=>c.id===id),disp=c=>c.conhecido||c.nome||'Sem nome';
+const newChar=()=>({id:uid(),nome:'Novo personagem',conhecido:'',titulo:'',descCurta:'',universo:'',projeto:'',tags:[],fav:false,img:'',info:{},desc:{},apar:{},pers:{},historia:[],habilidades:[],relacoes:[],timeline:[],inventario:[],imagens:[],citacoes:[],notas:'',campos:[],criado:Date.now(),atualizado:Date.now()});
+const norm=c=>Object.assign(newChar(),c);
+const av=(c,cls)=>`<div class="${cls}" style="${c.img?`background-image:url('${esc(c.img)}')`:''}">${c.img?'':esc(disp(c)[0]||'?')}</div>`;
+const tagsOf=c=>[...(c.tags||[]),...(c.pers?.ptags||'').split(',').map(x=>x.trim()).filter(Boolean)];
+// ---------- Auto-save ----------
+let cur=null,timer;
+const ind=()=>$('#st').textContent={saved:'Guardado',saving:'A guardar…',dirty:'Alterações não guardadas'}[S.save];
+function dirty(c){cur=c;S.save='dirty';ind();clearTimeout(timer);timer=setTimeout(async()=>{S.save='saving';ind();try{c.atualizado=Date.now();await Store.put(c);S.save='saved'}catch(e){S.save='dirty'}ind()},600)}
+const saveNow=async c=>{S.save='saving';ind();try{c.atualizado=Date.now();await Store.put(c);S.save='saved'}catch(e){S.save='dirty'}ind()};
+function setPath(o,p,v){const k=p.split('.');const l=k.pop();for(const x of k){if(o[x]==null)o[x]={};o=o[x]}o[l]=v}
+function getPath(o,p){return p.split('.').reduce((a,x)=>a?.[x],o)}
+// ---------- Diálogo ----------
+const ask=(msg,val)=>new Promise(r=>{const d=document.createElement('dialog');d.innerHTML=`<form method="dialog"><p>${msg}</p>${val!==undefined?`<input value="${esc(val)}">`:''}<div class="row"><button class="pri" value="1">OK</button><button value="0">Cancelar</button></div></form>`;document.body.append(d);d.showModal();const i=d.querySelector('input');d.onclose=()=>{r(d.returnValue==='1'?(i?i.value:true):null);d.remove()}});
+// ---------- Utilitários ----------
+const imgData=(file,cb)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.82))};im.src=r.result};r.readAsDataURL(file)};
+const dl=(name,data)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download=name;a.click()};
+const hay=c=>JSON.stringify(c,(k,v)=>typeof v==='string'&&v.startsWith('data:')?'':v).toLowerCase()+' '+(c.relacoes||[]).map(r=>byId(r.alvo)?disp(byId(r.alvo)):'').join(' ').toLowerCase();
+function filtered(base){let l=base.filter(c=>(!S.f.u||c.universo===S.f.u)&&(!S.f.t||tagsOf(c).includes(S.f.t))&&(!S.q||hay(c).includes(S.q.toLowerCase())));
+const s=S.f.s;return l.sort((a,b)=>s==='nome'?disp(a).localeCompare(disp(b)):s==='cri'?b.criado-a.criado:b.atualizado-a.atualizado)}
+const universes=()=>[...new Set(S.chars.map(c=>c.universo).filter(Boolean))].sort();
+const allTags=()=>{const m={};S.chars.forEach(c=>tagsOf(c).forEach(t=>m[t]=(m[t]||0)+1));return m};
+// ---------- Vistas ----------
+function cardHTML(c){return `<div class="card"><div class="im" data-go="p/${c.id}" style="${c.img?`background-image:url('${esc(c.img)}')`:''}">${c.img?'':esc(disp(c)[0]||'?')}</div><div class="bd"><div style="display:flex;justify-content:space-between;gap:6px"><div><div class="nm" style="font-size:18px">${esc(disp(c))}</div><small style="color:var(--mu)">${esc(c.titulo||'')}</small></div><button class="fav" data-act="fav" data-id="${c.id}" aria-label="Favorito">${c.fav?'★':'☆'}</button></div><p>${esc(c.descCurta||'')}</p>${c.universo?`<small style="color:var(--ac)">${esc(c.universo)}${c.projeto?' · '+esc(c.projeto):''}</small>`:''}<div>${(c.tags||[]).map(t=>`<span class="tg" data-tag="${esc(t)}">#${esc(t)}</span>`).join('')}</div><label style="font-size:12px;color:var(--mu)"><input type="checkbox" data-sel="${c.id}" ${S.sel.has(c.id)?'checked':''} style="width:auto"> selecionar</label><div class="act"><button data-go="p/${c.id}">Abrir</button><button data-act="edit" data-id="${c.id}">Editar</button><button data-act="dup" data-id="${c.id}">Duplicar</button><button data-act="del" data-id="${c.id}">Eliminar</button></div></div></div>`}
+function listView(title,base,recent){const l=filtered(base);const us=universes(),ts=Object.keys(allTags()).sort();
+return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>${title}</h2><button class="pri" data-act="new">+ Criar personagem</button></div>
+<div class="bar"><select data-f="u"><option value="">Todos os universos</option>${us.map(u=>`<option ${S.f.u===u?'selected':''}>${esc(u)}</option>`).join('')}</select><select data-f="t"><option value="">Todas as tags</option>${ts.map(t=>`<option ${S.f.t===t?'selected':''}>${esc(t)}</option>`).join('')}</select><select data-f="s"><option value="rec" ${S.f.s==='rec'?'selected':''}>Editados recentemente</option><option value="nome" ${S.f.s==='nome'?'selected':''}>Nome</option><option value="cri" ${S.f.s==='cri'?'selected':''}>Data de criação</option></select><button data-act="view">${S.f.v==='grid'?'Ver em lista':'Ver em grelha'}</button><button id="xs" data-act="expsel">Exportar selecionados (${S.sel.size})</button></div>
+${recent&&!S.q&&S.chars.length?`<h3 style="margin:6px 0 10px">Editados recentemente</h3><div class="grid" style="margin-bottom:24px">${[...S.chars].sort((a,b)=>b.atualizado-a.atualizado).slice(0,4).map(cardHTML).join('')}</div><h3 style="margin-bottom:10px">Todos</h3>`:''}
+${l.length?`<div class="${S.f.v==='grid'?'grid':'list'}">${l.map(cardHTML).join('')}</div>`:`<div class="empty">${S.chars.length?'Nenhum personagem corresponde à pesquisa.':'Ainda não tem personagens. Crie o primeiro.'}</div>`}`}
+function fld(p,v,l,t){return `<label class="f"><span>${l}</span>${t==='l'?`<textarea data-p="${p}">${esc(v)}</textarea>`:`<input data-p="${p}" value="${esc(v)}">`}</label>`}
+const kv=(l,v)=>`<div class="kv"><b>${l}</b><p>${esc(v)}</p></div>`;
+const upl=p=>`<label style="display:inline-block;margin:4px 0"><input type="file" accept="image/*" hidden data-up="${p}"><span class="tg" style="padding:4px 12px">Enviar ficheiro</span></label>`;
+function secHTML(k,ed){const c=cur,fs=SEC[k];c[k]=c[k]||{};
+if(ed)return `<div class="g">${fs.map(([f,l,t])=>fld(k+'.'+f,c[k][f]||'',l,t)).join('')}</div>`;
+const r=fs.filter(([f])=>c[k][f]).map(([f,l])=>kv(l,c[k][f])).join('');return r?`<div class="g">${r}</div>`:'<div class="empty">Sem informação ainda. Use “Editar” para preencher.</div>'}
+function valInput(p,it,ed){const t=it.tipo||'s',v=it.valor??'';
+if(t==='l')return fld(p,v,'Valor','l');if(t==='b')return `<label class="f"><span>Valor</span><input type="checkbox" data-p="${p}" ${v?'checked':''} style="width:auto"></label>`;
+if(t==='img')return fld(p,v,'Imagem (URL)')+upl(p)+(v?`<img class="pv" src="${esc(v)}" alt="">`:'');
+return `<label class="f"><span>Valor</span><input type="${t==='n'?'number':t==='d'?'date':'text'}" data-p="${p}" value="${esc(v)}"></label>`}
+function itemEdit(k,it,i){const p=k+'.'+i+'.';const fs=LST[k][1];
+return `<div class="item"><div class="ctl">${k==='imagens'?`<button data-act="main" data-i="${i}">Definir como principal</button>`:''}<button data-act="up" data-k="${k}" data-i="${i}">↑</button><button data-act="dn" data-k="${k}" data-i="${i}">↓</button><button data-act="rm" data-k="${k}" data-i="${i}">Remover</button></div><div class="g">${fs.map(([f,l,t])=>{const v=it[f]??'';
+if(t==='img')return `<div>${fld(p+f,v,l+' (URL)')}${upl(p+f)}${v?`<img class="pv" src="${esc(v)}" alt="">`:''}</div>`;
+if(t==='rich')return `<div style="grid-column:1/-1"><div class="ctl" data-tb style="justify-content:flex-start">${[['formatBlock','H2','Título'],['formatBlock','H3','Subtítulo'],['bold','','B'],['italic','','I'],['insertUnorderedList','','Lista'],['formatBlock','BLOCKQUOTE','Citação'],['insertHorizontalRule','','—'],['createLink','','Link'],['insertImage','','Imagem']].map(([a,b,n])=>`<button data-cmd="${a}" data-arg="${b}">${n}</button>`).join('')}</div><div class="rich" contenteditable data-p="${p+f}" data-rich>${san(v)}</div></div>`;
+if(t==='chars')return `<label class="f"><span>${l}</span><select multiple data-p="${p+f}" data-multi>${S.chars.filter(o=>o.id!==cur.id).map(o=>`<option value="${o.id}" ${(it[f]||[]).includes(o.id)?'selected':''}>${esc(disp(o))}</option>`).join('')}</select></label>`;
+if(t==='sel')return `<label class="f"><span>${l}</span><select data-p="${p+f}" data-rr>${TIPOS.map(([a,b])=>`<option value="${a}" ${(it.tipo||'s')===a?'selected':''}>${b}</option>`).join('')}</select></label>`;
+if(t==='val')return valInput(p+f,it,true);return fld(p+f,v,l,t)}).join('')}</div></div>`}
+function itemView(k,it){const fs=LST[k][1];const im=fs.find(f=>f[2]==='img');const first=fs[0];
+if(k==='citacoes')return `<div class="item"><div class="q">${esc(it.texto)}</div><small style="color:var(--mu)">${esc([it.contexto,it.evento].filter(Boolean).join(' · '))}</small></div>`;
+if(k==='campos'){const t=it.tipo||'s',v=it.valor;return kv(it.nome||'Campo',t==='b'?(v?'Sim':'Não'):t==='img'?'':v)+(t==='img'&&v?`<img class="pv" src="${esc(v)}" alt="">`:'')}
+if(k==='imagens')return `<div class="item"><img src="${esc(it.url)}" alt="${esc(it.legenda)}" style="max-height:none;width:100%"><small>${esc(it.legenda||'')}</small></div>`;
+if(k==='historia')return `<div class="item"><h3>${esc(it.titulo||'Sem título')}</h3><div>${san(it.html)}</div></div>`;
+return `<div class="item">${im&&it[im[0]]?`<img src="${esc(it[im[0]])}" alt="">`:''}<h3>${esc(it[first[0]]||'Sem título')}</h3>${fs.slice(1).filter(f=>f[2]!=='img'&&it[f[0]]).map(f=>kv(f[1],f[2]==='chars'?[].concat(it[f[0]]).map(i=>byId(i)?disp(byId(i)):i).join(', '):it[f[0]])).join('')}</div>`}
+function listHTML(k,ed){const c=cur;let items=c[k]||[];const [,,add]=LST[k];
+if(ed)return items.map((it,i)=>itemEdit(k,it,i)).join('')+`<button class="pri" data-act="add" data-k="${k}">+ ${add}</button>`;
+if(k==='timeline')items=[...items].sort((a,b)=>String(a.data||'').localeCompare(String(b.data||''),undefined,{numeric:true}));
+return items.length?(k==='timeline'?`<div class="tl">${items.map(i=>itemView(k,i)).join('')}</div>`:(k==='imagens'?`<div class="grid">`+items.map(i=>itemView(k,i)).join('')+'</div>':items.map(i=>itemView(k,i)).join(''))):'<div class="empty">Nada por aqui ainda.</div>'}
+function relHTML(ed){const c=cur,others=S.chars.filter(x=>x.id!==c.id);
+const row=(x,tipo,d,sub)=>`<div class="item rel" data-go="p/${x.id}">${av(x,'av')}<div><b>${esc(disp(x))}</b> <span class="tg">${esc(tipo)}</span>${sub?`<small style="color:var(--mu)"> ${sub}</small>`:''}<div style="color:var(--mu)">${esc(d||'')}</div></div></div>`;
+let h='';
+if(ed){h+=`<datalist id="rt">${REL.map(r=>`<option value="${r}">`).join('')}${[...new Set(S.chars.flatMap(x=>(x.relacoes||[]).map(r=>r.tipo)))].map(r=>`<option value="${esc(r)}">`).join('')}</datalist>`;
+h+=(c.relacoes||[]).map((r,i)=>`<div class="item"><div class="ctl"><button data-act="rm" data-k="relacoes" data-i="${i}">Remover</button></div><div class="g"><label class="f"><span>Personagem</span><select data-p="relacoes.${i}.alvo"><option value="">— escolher —</option>${others.map(o=>`<option value="${o.id}" ${r.alvo===o.id?'selected':''}>${esc(disp(o))}</option>`).join('')}</select></label><label class="f"><span>Tipo (pode criar um novo)</span><input list="rt" data-p="relacoes.${i}.tipo" value="${esc(r.tipo||'')}"></label>${fld(`relacoes.${i}.desc`,r.desc||'','Descrição (opcional)')}<label class="f"><span>Aparece também no perfil dele/dela</span><input type="checkbox" style="width:auto" data-p="relacoes.${i}.recip" ${r.recip?'checked':''}></label></div></div>`).join('');
+return h+`<button class="pri" data-act="add" data-k="relacoes">+ Adicionar relação</button>`}
+const out=(c.relacoes||[]).filter(r=>byId(r.alvo)).map(r=>row(byId(r.alvo),r.tipo||'Relação',r.desc)).join('');
+const inc=S.chars.flatMap(x=>(x.relacoes||[]).filter(r=>r.alvo===c.id&&r.recip).map(r=>row(x,r.tipo||'Relação',r.desc,'(relação inversa)'))).join('');
+return out+inc||'<div class="empty">Sem relações. Use “Editar” para adicionar.</div>'}
+function tabHTML(ed){const t=S.tab;if(SEC[t])return secHTML(t,ed);if(t==='rel')return relHTML(ed);
+if(t==='notas')return (ed?fld('notas',cur.notas||'','Notas pessoais','l'):(cur.notas?kv('Notas pessoais',cur.notas):''))+`<h3 style="margin:18px 0 10px">Campos personalizados</h3>`+listHTML('campos',ed);
+return listHTML(t,ed)}
+function charView(id){const c=byId(id);if(!c){M.innerHTML='<div class="empty">Personagem não encontrado.</div>';return}cur=c;const ed=S.ed;
+const H=ed?`<div class="g">${fld('nome',c.nome,'Nome completo (obrigatório)')}${fld('conhecido',c.conhecido,'Nome pelo qual é conhecido')}${fld('titulo',c.titulo,'Apelido ou título')}${fld('universo',c.universo,'Universo')}${fld('projeto',c.projeto,'Projeto')}<label class="f"><span>Tags (vírgulas)</span><input data-p="tags" data-arr value="${esc((c.tags||[]).join(', '))}"></label></div>${fld('descCurta',c.descCurta,'Descrição curta','l')}${fld('img',c.img&&c.img.startsWith('data:')?'':c.img,'Imagem principal (URL)')}${upl('img')}`
+:`<h2>${esc(disp(c))}</h2><div style="color:var(--mu)">${esc(c.titulo||'')}</div><p>${esc(c.descCurta||'')}</p>${c.universo?`<div style="color:var(--ac)">${esc(c.universo)}${c.projeto?' · '+esc(c.projeto):''}</div>`:''}<div>${(c.tags||[]).map(t=>`<span class="tg" data-tag="${esc(t)}">#${esc(t)}</span>`).join('')}</div>`;
+M.innerHTML=`<div class="hero">${av(c,'pic')}<div class="hi">${H}<div class="act" style="flex-wrap:wrap"><button class="fav" data-act="fav" data-id="${c.id}">${c.fav?'★':'☆'}</button><button class="${ed?'pri':''}" data-act="toggle">${ed?'Concluir':'Editar'}</button><button data-act="dup" data-id="${c.id}">Duplicar</button><button data-act="exp" data-id="${c.id}">Exportar</button><button data-act="pdf">Ficha PDF</button><button data-act="del" data-id="${c.id}">Eliminar</button></div></div></div><div class="tabs">${TABS.map(([k,l])=>`<button data-tab="${k}" class="${S.tab===k?'on':''}">${l}</button>`).join('')}</div><div id="tb">${tabHTML(ed)}</div>`}
+function graphView(){const cs=S.chars,n=cs.length;if(!n)return '<div class="empty">Crie personagens e relações para ver o mapa.</div>';
+const W=800,Hh=560,P={};cs.forEach((c,i)=>{const a=2*Math.PI*i/n-Math.PI/2;P[c.id]=[W/2+Math.cos(a)*(n>1?300:0),Hh/2+Math.sin(a)*(n>1?210:0)]});
+let e='',nd='';cs.forEach(c=>(c.relacoes||[]).forEach(r=>{if(!P[r.alvo])return;const [x1,y1]=P[c.id],[x2,y2]=P[r.alvo];e+=`<line class="ed" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><text x="${(x1+x2)/2}" y="${(y1+y2)/2}" text-anchor="middle" style="paint-order:stroke;stroke:var(--bg);stroke-width:4px">${esc(r.tipo||'')}</text>`}));
+cs.forEach(c=>{const [x,y]=P[c.id];nd+=`<g data-go="p/${c.id}" style="cursor:pointer"><clipPath id="k${c.id}"><circle cx="${x}" cy="${y}" r="26"/></clipPath><circle cx="${x}" cy="${y}" r="28" fill="var(--ln)" stroke="var(--ac)" stroke-width="2"/>${c.img?`<image href="${esc(c.img)}" x="${x-26}" y="${y-26}" width="52" height="52" clip-path="url(#k${c.id})" preserveAspectRatio="xMidYMid slice"/>`:`<text x="${x}" y="${y+5}" text-anchor="middle">${esc(disp(c)[0])}</text>`}<text x="${x}" y="${y+46}" text-anchor="middle">${esc(disp(c))}</text></g>`});
+return `<div style="overflow:auto;background:var(--pn);border:1px solid var(--ln);border-radius:var(--r)"><svg viewBox="0 0 ${W} ${Hh}" style="min-width:600px;width:100%">${e}${nd}</svg></div><p style="color:var(--mu)">Clique num personagem para abrir o perfil.</p>`}
+function render(){const h=location.hash.replace(/^#\/?/,'').split('/');const v=h[0];
+$('#nav').innerHTML=`<h1>Arquivo de personagens</h1>`+NAV.map(([k,l])=>`<a data-go="${k}" class="${(v===k||(k===''&&v==='p'))?'on':''}">${l}</a>`).join('');
+if(v!=='p')S.ed=false;
+if(v==='p')return charView(h[1]);
+if(S.q&&['','personagens','favoritos'].includes(v)===false)return M.innerHTML=listView('Resultados da pesquisa',S.chars);
+if(v==='favoritos')M.innerHTML=listView('Favoritos',S.chars.filter(c=>c.fav));
+else if(v==='personagens')M.innerHTML=listView('Personagens',S.chars);
+else if(v==='universos'){const us=universes();M.innerHTML=`<h2>Universos e projetos</h2><div class="grid" style="margin-top:14px">${us.map(u=>{const l=S.chars.filter(c=>c.universo===u);return `<div class="card"><div class="bd"><div class="nm" style="font-size:20px">${esc(u)}</div><small>${l.length} personagens</small><div>${l.map(c=>`<span class="tg" data-go="p/${c.id}">${esc(disp(c))}</span>`).join('')}</div><div class="act"><button data-uni="${esc(u)}" data-act="uvis">Ver</button><button data-uni="${esc(u)}" data-act="uren">Renomear</button><button data-uni="${esc(u)}" data-act="udel">Eliminar</button></div></div></div>`}).join('')||'<div class="empty">Sem universos. Defina o universo na ficha de um personagem.</div>'}</div>`}
+else if(v==='tags'){const t=allTags();M.innerHTML=`<h2>Tags</h2><div style="margin-top:14px">${Object.keys(t).sort().map(k=>`<span class="tg" style="font-size:15px" data-tag="${esc(k)}">#${esc(k)} (${t[k]})</span>`).join('')||'<div class="empty">Sem tags ainda.</div>'}</div>`}
+else if(v==='relacoes')M.innerHTML=`<h2>Mapa de relações</h2><div style="margin-top:14px">${graphView()}</div>`;
+else if(v==='timeline'){const ev=S.chars.flatMap(c=>(c.timeline||[]).map(e=>({...e,c})));ev.sort((a,b)=>String(a.data||'').localeCompare(String(b.data||''),undefined,{numeric:true}));M.innerHTML=`<h2>Timeline geral</h2><div class="tl" style="margin-top:14px">${ev.map(e=>`<div class="item"><small>${esc(e.data||'')}</small><h3>${esc(e.titulo||'')}</h3><p>${esc(e.descricao||'')}</p><span class="tg" data-go="p/${e.c.id}">${esc(disp(e.c))}</span></div>`).join('')||'<div class="empty">Sem eventos ainda.</div>'}</div>`}
+else if(v==='config')M.innerHTML=`<h2>Definições</h2><div class="g" style="margin-top:14px"><div class="kv"><b>Tema</b><button data-act="theme">Alternar claro / escuro</button></div><div class="kv"><b>Backup completo (JSON)</b><button data-act="expall">Exportar tudo</button></div><div class="kv"><b>Importar personagens</b><label><input type="file" accept=".json" hidden data-imp><span class="tg" style="padding:6px 14px">Escolher ficheiro JSON</span></label></div><div class="kv"><b>Apagar todos os dados</b><button data-act="wipe">Apagar tudo</button></div></div>`;
+else M.innerHTML=listView('Dashboard',S.chars,true);ind()}
+function sheet(c){const T={info:'Informações',desc:'Descrição',apar:'Aparência',pers:'Personalidade'};
+let h=`${c.img?`<img src="${esc(c.img)}" alt="">`:''}<h1>${esc(disp(c))}</h1><p>${esc(c.titulo||'')}</p><p>${esc(c.descCurta||'')}</p>`;
+for(const k in T){const x=SEC[k].filter(([f])=>c[k]?.[f]).map(([f,l])=>`<p><b>${l}:</b> ${esc(c[k][f])}</p>`).join('');if(x)h+=`<h3>${T[k]}</h3>${x}`}
+(c.historia||[]).forEach(i=>h+=`<h3>${esc(i.titulo||'História')}</h3>${san(i.html)}`);
+[['habilidades','nome','descricao'],['inventario','nome','descricao'],['timeline','titulo','descricao']].forEach(([k,a,b])=>{if((c[k]||[]).length)h+=`<h3>${LST[k][0]}</h3>`+c[k].map(i=>`<p><b>${esc(i[a]||'')}</b>${i.data?' ('+esc(i.data)+')':''} ${esc(i[b]||'')}</p>`).join('')});
+const rl=(c.relacoes||[]).filter(r=>byId(r.alvo));if(rl.length)h+=`<h3>Relações</h3>`+rl.map(r=>`<p><b>${esc(r.tipo||'')}</b> — ${esc(disp(byId(r.alvo)))}</p>`).join('');
+$('#sheet').innerHTML=h;window.print()}
+// ---------- Eventos ----------
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-go],[data-act],[data-tab],[data-tag],[data-cmd]');if(!t)return;const d=t.dataset;
+if(d.cmd){e.preventDefault();let a=d.arg;if(d.cmd==='createLink'||d.cmd==='insertImage'){a=await ask(d.cmd==='createLink'?'Endereço do link':'URL da imagem','https://');if(!a)return}document.execCommand(d.cmd,false,a||null);const r=t.parentElement.nextElementSibling;r.dispatchEvent(new Event('input',{bubbles:true}));return}
+if(d.go!==undefined)return void(location.hash='#/'+d.go);
+if(d.tag){S.f.t=d.tag;location.hash='#/personagens';return render()}
+if(d.tab){S.tab=d.tab;return charView(cur.id)}
+const c=byId(d.id)||cur,a=d.act;
+if(a==='new'){const n=newChar();S.chars.push(n);await saveNow(n);S.ed=true;S.tab='desc';location.hash='#/p/'+n.id}
+else if(a==='fav'){c.fav=!c.fav;await saveNow(c);render()}
+else if(a==='edit'){S.ed=true;location.hash='#/p/'+c.id;render()}
+else if(a==='toggle'){S.ed=!S.ed;if(!c.nome.trim())c.nome='Sem nome';await saveNow(c);charView(c.id)}
+else if(a==='dup'){const n=norm(JSON.parse(JSON.stringify(c)));n.id=uid();n.nome+=' (cópia)';n.criado=n.atualizado=Date.now();S.chars.push(n);await saveNow(n);render()}
+else if(a==='del'){if(await ask(`Eliminar “${esc(disp(c))}”? Esta ação não pode ser desfeita.`)){S.chars=S.chars.filter(x=>x.id!==c.id);await Store.del(c.id);for(const x of S.chars){const n=(x.relacoes||[]).filter(r=>r.alvo!==c.id);if(n.length!==(x.relacoes||[]).length){x.relacoes=n;await Store.put(x)}}cur=null;location.hash='#/personagens';render()}}
+else if(a==='exp')dl(disp(c)+'.json',{versao:1,chars:[c]});
+else if(a==='pdf')sheet(c);
+else if(a==='expsel')dl('selecao.json',{versao:1,chars:S.chars.filter(x=>S.sel.has(x.id))});
+else if(a==='expall')dl('personagens-backup.json',{versao:1,chars:S.chars});
+else if(a==='view'){S.f.v=S.f.v==='grid'?'list':'grid';render()}
+else if(a==='theme'){const r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('tema',r.dataset.theme)}catch(x){}}
+else if(a==='wipe'){if(await ask('Apagar todos os personagens? Faça primeiro um backup.')){await Store.clear();S.chars=[];render()}}
+else if(a==='add'){const k=d.k;cur[k]=cur[k]||[];cur[k].push(k==='relacoes'?{recip:true}:{});dirty(cur);charView(cur.id)}
+else if(a==='rm'){cur[d.k].splice(+d.i,1);dirty(cur);charView(cur.id)}
+else if(a==='up'||a==='dn'){const l=cur[d.k],i=+d.i,j=a==='up'?i-1:i+1;if(j>=0&&j<l.length){[l[i],l[j]]=[l[j],l[i]];dirty(cur);charView(cur.id)}}
+else if(a==='main'){cur.img=cur.imagens[+d.i].url;dirty(cur);charView(cur.id)}
+else if(a==='uvis'){S.f.u=d.uni;location.hash='#/personagens'}
+else if(a==='uren'){const n=await ask('Novo nome do universo',d.uni);if(n){for(const x of S.chars.filter(x=>x.universo===d.uni)){x.universo=n;await Store.put(x)}render()}}
+else if(a==='udel'){if(await ask('Remover este universo? Os personagens ficam sem universo.')){for(const x of S.chars.filter(x=>x.universo===d.uni)){x.universo='';await Store.put(x)}render()}}});
+function onEdit(e){const el=e.target;if(el.dataset.sel){el.checked?S.sel.add(el.dataset.sel):S.sel.delete(el.dataset.sel);const b=$('#xs');if(b)b.textContent='Exportar selecionados ('+S.sel.size+')';return}if(el.id==='q'){S.q=el.value;if(location.hash.startsWith('#/p/'))location.hash='#/personagens';else render();return}
+if(el.dataset.f){S.f[el.dataset.f]=el.value;return render()}
+if(el.dataset.imp!==undefined&&el.files[0]){el.files[0].text().then(async t=>{try{const j=JSON.parse(t);const l=Array.isArray(j)?j:j.chars||[j];for(const x of l){const n=norm(x);if(!n.id)n.id=uid();await Store.put(n);const i=S.chars.findIndex(c=>c.id===n.id);i<0?S.chars.push(n):S.chars[i]=n}await ask(l.length+' personagem(ns) importado(s).');render()}catch(x){ask('Ficheiro inválido.')}});return}
+if(el.dataset.up&&el.files[0]){imgData(el.files[0],url=>{setPath(cur,el.dataset.up,url);if(el.dataset.up==='img')cur.img=url;dirty(cur);charView(cur.id)});return}
+const p=el.dataset.p;if(!p)return;let v=el.type==='checkbox'?el.checked:el.isContentEditable?el.innerHTML:el.value;if(el.dataset.arr!==undefined)v=v.split(',').map(x=>x.trim()).filter(Boolean);if(el.dataset.multi!==undefined)v=[...el.selectedOptions].map(o=>o.value);
+setPath(cur,p,v);dirty(cur);if(el.dataset.rr!==undefined&&e.type==='change')charView(cur.id)}
+document.addEventListener('input',onEdit);document.addEventListener('change',e=>{if(e.target.type==='file'||e.target.tagName==='SELECT'||e.target.type==='checkbox')onEdit(e)});
+document.addEventListener('mousedown',e=>{if(e.target.closest('[data-cmd]'))e.preventDefault()});
+window.addEventListener('hashchange',render);window.addEventListener('beforeunload',()=>{if(S.save!=='saved'&&cur)Store.put(cur)});
+// ---------- Arranque ----------
+(async()=>{try{const t=localStorage.getItem('tema');if(t)document.documentElement.dataset.theme=t}catch(e){}
+try{S.chars=(await Store.all()).map(norm)}catch(e){S.chars=[]}render()})();
+</script>
+</body>
+</html>
