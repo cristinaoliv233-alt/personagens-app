@@ -68,7 +68,7 @@ main{padding:22px;overflow:auto;flex:1}
 dialog{border:1px solid var(--ln);border-radius:var(--r);background:var(--pn);color:var(--ink);max-width:380px;width:90%}
 dialog .row{display:flex;gap:8px;justify-content:flex-end;flex-direction:row-reverse;margin-top:12px}
 svg text{fill:var(--ink);font-size:12px}svg .ed{stroke:var(--mu);stroke-width:1.2}
-@media(max-width:780px){body{flex-direction:column-reverse}nav{width:auto;flex-direction:row;border-right:0;border-top:1px solid var(--ln);padding:6px}nav h1{display:none}main,header{padding:14px}.pic{width:100%;aspect-ratio:4/3}}
+@media(max-width:780px){body{flex-direction:column-reverse}nav{width:100%;flex-direction:row;overflow-x:auto;border-right:0;border-top:1px solid var(--ln);padding:6px;position:fixed;bottom:0;left:0;z-index:99;background:var(--pn)}nav h1{display:none}#col{padding-bottom:60px}header{flex-wrap:wrap;padding:10px 14px}header input{max-width:100%}main{padding:12px}.grid{grid-template-columns:1fr}.hero{padding:12px;gap:12px}.pic{width:100%;aspect-ratio:4/3}}
 #sheet{display:none}@media print{nav,#col{display:none!important}#sheet{display:block;color:#000;background:#fff;padding:10px}#sheet img{max-width:180px;float:right}#sheet h1{font-size:30px}#sheet h3{border-bottom:1px solid #999;margin-top:16px}#sheet p{white-space:pre-wrap;margin:2px 0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
